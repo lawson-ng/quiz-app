@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Resources\ExamResource;
+use App\Http\Resources\QuestionResource;
 use App\Models\Oex_exam_master;
+use App\Models\Oex_question_master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/exams', function () {
     return new ExamResource(Oex_exam_master::all());
+});
+
+Route::get('/questions/{exam_id}', function ($exam_id) {
+    return Oex_question_master::where('exam_id',$exam_id)->get()->toArray();
 });
