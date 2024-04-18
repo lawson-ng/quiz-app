@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\ExamResource;
+use App\Models\Oex_exam_master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/exams', function () {
+    return new ExamResource(Oex_exam_master::all());
 });

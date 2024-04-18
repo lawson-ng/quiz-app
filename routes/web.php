@@ -86,8 +86,6 @@ Route::prefix('student')->middleware('theme:dashboard')->name('student.')->group
         Route::get('/view_result/{id}',[StudentOperation::class,'view_result']);
         Route::get('/view_answer/{id}',[StudentOperation::class,'view_answer']);
 
-
-
         Route::get('/logout',[AuthenticatedSessionController::class,'destroy']);
     });
 
