@@ -23,9 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/exams', function () {
-    return new ExamResource(Oex_exam_master::all());
+    return new ExamResource(Oex_exam_master::with(['cate' => function ($query) {
+        $query->select("id", "name");
+    }])->get()->toArray());
 });
 
 Route::get('/questions/{exam_id}', function ($exam_id) {
-    return Oex_question_master::where('exam_id',$exam_id)->get()->toArray();
+    return new QuestionResource(Oex_question_master::where('exam_id',$exam_id)->get()->toArray());
 });

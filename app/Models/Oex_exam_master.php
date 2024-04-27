@@ -14,4 +14,12 @@ class Oex_exam_master extends Model
     protected $primaryKey="id";
 
     protected $fillable=['title','category','exam_date','status','exam_duration'];
+
+    /**
+     * Get the profile associated with the user.
+     */
+    public function cate()
+    {
+        return $this->hasOne(Oex_category::class, 'id', 'category');
+    }
 }
