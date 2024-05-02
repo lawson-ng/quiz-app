@@ -2,6 +2,7 @@
 
 use App\Http\Resources\ExamResource;
 use App\Http\Resources\QuestionResource;
+use App\Models\Oex_category;
 use App\Models\Oex_exam_master;
 use App\Models\Oex_question_master;
 use Illuminate\Http\Request;
@@ -26,6 +27,10 @@ Route::get('/exams', function () {
     return new ExamResource(Oex_exam_master::with(['cate' => function ($query) {
         $query->select("id", "name");
     }])->get()->toArray());
+});
+
+Route::get('/categories', function () {
+    return new ExamResource(Oex_category::all());
 });
 
 Route::get('/questions/{exam_id}', function ($exam_id) {
