@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Session;
 use App\Models\user_exam;
 use App\Models\Admin;
 use App\Models\Oex_result;
+use Database\Seeders\ExamSeeder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminController extends Controller
 {
@@ -457,5 +459,16 @@ class AdminController extends Controller
         $data['result_info'] = Oex_result::where('exam_id', $std_exam->exam_id)->where('user_id', $std_exam->user_id)->get()->first();
 
         return view('admin.admin_view_result', $data);
+    }
+
+    public function seed_exam($cate_id)
+    {
+
+        // Chạy Seeder với category
+        $seeder = new ExamSeeder();
+        $seeder->setCategory($cate_id);
+        $seeder->run();
+
+        return response()->json(['message' => 'Seeder đã được chạy với Category: ' . $cate_id]);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Oex_exam_master;
 use App\Models\Oex_question_master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,5 @@ Route::get('/categories', function () {
 Route::get('/questions/{exam_id}', function ($exam_id) {
     return new QuestionResource(Oex_question_master::where('exam_id',$exam_id)->get()->toArray());
 });
+
+Route::get('/run-exam-seed/{cate_id}', [AdminController::class, 'seed_exam']);
